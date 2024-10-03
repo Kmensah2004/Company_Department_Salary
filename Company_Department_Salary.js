@@ -1,3 +1,4 @@
+// Task 1 Creating an object and an array of Employee Objects
 const company = {
  departments: [
  {
@@ -50,3 +51,18 @@ const company = {
         }
     ]
 };
+// Task 2: Recursive Function to Calculate Total Salary for a specific Department
+
+function calculateDepartmentSalary(departmentName) {
+    let totalDepSalary = 0;
+    for (let employees of departmentName.employees) { // Loop through all employees in the department     
+        totalDepSalary += employees.salary; 
+        for (let subordinate of employees.subordinates) { //  adds the salaries of the employee's subordinates 
+            totalDepSalary += calculateDepartmentSalary({ employees: [subordinate] });
+        }
+    }
+
+    return totalDepSalary;
+}
+const totalDepSalary = calculateDepartmentSalary(HR);
+console.log(`Total salary for HR Department: $${totalDepSalary}`); // Outputs total for HR department
